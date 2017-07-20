@@ -1,0 +1,31 @@
+{
+  "name": "blockbox",
+  "version": "1.0.0",
+  "description": "Blockchain project",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georn/BlockBox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georn/BlockBox/issues"
+  },
+  "homepage": "https://github.com/georn/BlockBox#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "crypto-js": "^3.1.9-1",
+    "express": "^4.15.3",
+    "moment": "^2.18.1",
+    "ws": "^3.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
+    "mocha": "^3.4.2"
+  }
+}
