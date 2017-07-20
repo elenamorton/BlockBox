@@ -1,0 +1,19 @@
+{
+  "name": "blockbox",
+  "version": "1.0.0",
+  "description": "Blockchain project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/georn/BlockBox.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/georn/BlockBox/issues"
+  },
+  "homepage": "https://github.com/georn/BlockBox#readme"
+}
