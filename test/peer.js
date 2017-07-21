@@ -1,15 +1,15 @@
 const expect  = require('chai').expect
 const chaiHttp = require('chai-http')
 const request = require('request')
+
 const webSocket = require('ws')
+const mockServer = require('mock-socket').Server
+
 
 describe('BlockBox Web Socket Server', () => {
-  let url = 'http://localhost:6001/'
 
-  before(() => {
-    peer1 = new webSocket(url)
-    peer2 = new webSocket(url)
-  })
+  let peer1 = new webSocket('ws://localhost:6001/')
+  let peer2 = new webSocket('ws://localhost:6002/')
 
   it('peer 1 can send data to peer 2', (done) => {
     let message1 = {

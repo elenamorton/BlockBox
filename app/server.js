@@ -11,3 +11,5 @@ app.get('/', (req, res) => {
 })
 
 app.listen(httpPort, () => console.log(`Listening http on port: ${httpPort}`))
+
+module.exports = app
