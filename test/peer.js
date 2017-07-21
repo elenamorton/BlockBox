@@ -3,23 +3,24 @@ const chaiHttp = require('chai-http')
 const request = require('request')
 
 const webSocket = require('ws')
-const mockServer = require('mock-socket').Server
+const Server = require('mock-socket').Server
 
 
 describe('BlockBox Web Socket Server', () => {
+  const mockServer = new Server('ws://localhost:6001')
+  const peer1 = new webSocket('ws://localhost:6002/')
+  const message = 'test message'
 
-  let peer1 = new webSocket('ws://localhost:6001/')
-  let peer2 = new webSocket('ws://localhost:6002/')
-
-  it('peer 1 can send data to peer 2', (done) => {
-    let message1 = {
-      id: 'message1',
-      data: 'Peer 1 message'
-    }
-    peer1.send(JSON.stringify(message1))
-    peer2.once('message', (message) => {
-      expect(message).equal(JSON.stringify(message1)),
-      done();
+  it('wc server can send data to peer 1', (done) => {
+    mockServer.on('connection', server => {
+      mockServer.send(message)
+      mockServer.send(message)
     })
+    
+    peer1.once('message', (message) => {
+      expect(message).equal(JSON.stringify(message))
+    })
+    
+    mockServer.stop(done)
   })
 })

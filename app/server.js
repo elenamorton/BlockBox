@@ -10,6 +10,6 @@ app.get('/', (req, res) => {
   res.send('Hello BlockBox!!')
 })
 
-app.listen(httpPort, () => console.log(`Listening http on port: ${httpPort}`))
+let httpServer = app.listen(httpPort, () => console.log(`Listening http on port: ${httpPort}`))
 
-module.exports = app
+module.exports = httpServer
