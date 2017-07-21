@@ -1,44 +1,36 @@
 const expect  = require('chai').expect
-const chaiHttp = require('chai-http')
-const request = require('request')
-
 const webSocket = require('ws')
-const Server = require('mock-socket').Server
+const Server = require('ws').Server
 
 describe('BlockBox Web Socket Server', () => {
-  const mockServer = new Server('ws://localhost:6001')
-  const peer1 = new webSocket('ws://localhost:6002/')
+  const server = new Server({ port: 6001 })
   const message = 'test message'
-    
-  afterEach( (done) => {
-    mockServer.stop(done)
+  server.on('connection', ws => {
+    ws.send(message)
   })
 
   it('wc server can send data to peer 1', () => {
-    mockServer.on('connection', server => {
-      mockServer.send(message)
-      mockServer.send(message)
-    })
+    const peer = new webSocket('ws://localhost:6001/')
+    let receivedMessage;
     
-    peer1.once('message', (peerMessage) => {
-      expect(peerMessage).equal(JSON.stringify(message))
-    })
+    peer.onmessage = (event) => {
+      receivedMessage = event.data
+    }
     
+    expect(receivedMessage).equal(message)
   })
   
   it('wc server can send data to peer 1 and peer 2', () => {
-    const peer2 = new webSocket('ws://localhost:6003/')
-    mockServer.on('connection', server => {
-      mockServer.send(message)
-      mockServer.send(message)
-    })
+    const peer = new webSocket('ws://localhost:6001/')
+    const peer2 = new webSocket('ws://localhost:6001/')
     
-    peer1.once('message', (peerMessage) => {
-      expect(peerMessage).equal(JSON.stringify(message))
-    })
-    peer2.once('message', (peerMessage) => {
-      expect(peerMessage).equal(JSON.stringify(message))
-    })
+    peer.onmessage = (event) => {
+      expect(event.data).equal(message)
+    }
+    
+    peer2.onmessage = (event) => {
+      expect(event.data).equal(message)
+    }
     
   })
   
