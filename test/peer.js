@@ -5,13 +5,17 @@ const request = require('request')
 const webSocket = require('ws')
 const Server = require('mock-socket').Server
 
-
 describe('BlockBox Web Socket Server', () => {
+  afterEach( (done) => {
+    mockServer.stop(done)
+  })
+  
   const mockServer = new Server('ws://localhost:6001')
   const peer1 = new webSocket('ws://localhost:6002/')
+
   const message = 'test message'
 
-  it('wc server can send data to peer 1', (done) => {
+  it('wc server can send data to peer 1', () => {
     mockServer.on('connection', server => {
       mockServer.send(message)
       mockServer.send(message)
@@ -21,6 +25,11 @@ describe('BlockBox Web Socket Server', () => {
       expect(message).equal(JSON.stringify(message))
     })
     
-    mockServer.stop(done)
   })
+  
+  
+  
 })
+  
+
+  

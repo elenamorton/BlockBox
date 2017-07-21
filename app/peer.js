@@ -8,7 +8,7 @@ const initialPeers = process.env.PEERS ? process.env.PEERS.split(',') : []
 
 
 let initP2PServer = () => {
-    let webServer = new webSocket.Server({port: p2p_port})
+    const webServer = new webSocket.Server({port: p2p_port})
     webServer.on('connection', ws => initConnection(ws))
     console.log(`listening websocket on p2p on port: ${p2p_port}`)
 }
